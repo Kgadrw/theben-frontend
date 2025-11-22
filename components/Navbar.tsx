@@ -97,61 +97,61 @@ export default function Navbar() {
 
       {/* Desktop Layout */}
       <div className="hidden sm:flex w-full items-center">
-        {/* Left: Navigation Links */}
+      {/* Left: Navigation Links */}
         <div className="flex gap-6 lg:gap-8 items-center flex-1 pl-12 mr-8 lg:mr-12">
-          <Link 
-            href="/" 
+        <Link 
+          href="/" 
             className={getLinkClassName('/')}
-            style={{ fontOpticalSizing: 'auto' }}
-          >
-            Home
-          </Link>
-          <Link 
-            href="/music" 
+          style={{ fontOpticalSizing: 'auto' }}
+        >
+          Home
+        </Link>
+        <Link 
+          href="/music" 
             className={getLinkClassName('/music')}
-            style={{ fontOpticalSizing: 'auto' }}
-          >
-            Music
-          </Link>
-          <Link 
-            href="/videos" 
+          style={{ fontOpticalSizing: 'auto' }}
+        >
+          Music
+        </Link>
+        <Link 
+          href="/videos" 
             className={getLinkClassName('/videos')}
-            style={{ fontOpticalSizing: 'auto' }}
-          >
-            Videos
-          </Link>
-          <Link 
-            href="/tour" 
+          style={{ fontOpticalSizing: 'auto' }}
+        >
+          Videos
+        </Link>
+        <Link 
+          href="/tour" 
             className={getLinkClassName('/tour')}
-            style={{ fontOpticalSizing: 'auto' }}
-          >
-            Tour
-          </Link>
-        </div>
-        
-        {/* Center: Artist Name */}
+          style={{ fontOpticalSizing: 'auto' }}
+        >
+          Tour
+        </Link>
+      </div>
+      
+      {/* Center: Artist Name */}
         <div className="flex-1 flex justify-center mx-8 lg:mx-12">
           <h1 className="text-3xl lg:text-[2.5rem] font-comforter font-normal tracking-[2px] text-white m-0 lowercase">
-            theben
-          </h1>
-        </div>
-        
+          theben
+        </h1>
+      </div>
+      
         {/* Right: Social Media Icons */}
         <div className="flex gap-4 lg:gap-6 items-center flex-1 justify-end">
           {socialLinks.map((social) => {
             const IconComponent = social.icon
             return (
-              <a
+          <a
                 key={social.name}
                 href={social.url}
                 className="cursor-pointer transition-all duration-300 opacity-80 hover:scale-125 hover:opacity-100 p-1"
                 aria-label={social.name}
                 title={social.name}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+            target="_blank"
+            rel="noopener noreferrer"
+          >
                 <IconComponent className="w-6 h-6 lg:w-6 lg:h-6" />
-              </a>
+          </a>
             )
           })}
         </div>

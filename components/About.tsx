@@ -1,8 +1,55 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { API_BASE_URL } from '@/app/config/api'
+
+interface AboutData {
+  _id: string
+  biography: string
+  image: string
+  title: string
+}
 
 export default function About() {
+  const [about, setAbout] = useState<AboutData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchAbout = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/about`)
+        if (response.ok) {
+          const data = await response.json()
+          setAbout(data)
+        }
+      } catch (error) {
+        console.error('Error fetching about:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchAbout()
+  }, [])
+
+  // Split biography into paragraphs (split by periods followed by spaces)
+  const biographyParagraphs = about?.biography
+    ? about.biography.split(/(?<=\.)\s+(?=[A-Z])/).filter(p => p.trim())
+    : []
+
+  if (loading) {
+    return (
+      <section className="relative w-full min-h-screen bg-black py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-center items-center py-20">
+            <p className="text-white text-xl font-quicksand font-light">Loading biography...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className="relative w-full min-h-screen bg-black py-20 px-4">
       <div className="max-w-7xl mx-auto">
@@ -10,27 +57,40 @@ export default function About() {
           {/* Biography Text - Left */}
           <div className="flex-1 text-white">
             <h2 className="text-white text-3xl md:text-4xl font-quicksand font-light uppercase tracking-wider mb-6 md:mb-8">
-              Biography
+              {about?.title || 'Biography'}
             </h2>
-            <p className="text-base md:text-lg leading-relaxed font-quicksand font-light opacity-90 mb-6">
-              Born Benjamin Mugisha on January 9, 1987, "The Ben" is a prominent figure in the East African music scene. He has produced numerous popular songs, such as "Ndaje", "Ni Forever", and "Naremeye", and often collaborates with other African artists. He was recently awarded the "East Africa Best Act/Song" award at the Pipo Music Awards for his song "True Love". He and his wife, Uwicyeza Pamella, welcomed their first child in early 2025.
-            </p>
-            <p className="text-base md:text-lg leading-relaxed font-quicksand font-light opacity-90">
-              The Ben is also preparing for a highly anticipated concert with fellow Rwandan artist Bruce Melodie in January 2026, which has generated significant buzz in the local entertainment industry.
-            </p>
+            {biographyParagraphs.length > 0 ? (
+              biographyParagraphs.map((paragraph, index) => (
+                <p
+                  key={index}
+                  className={`text-base md:text-lg leading-relaxed font-quicksand font-light opacity-90 ${
+                    index < biographyParagraphs.length - 1 ? 'mb-6' : ''
+                  }`}
+                >
+                  {paragraph.trim()}
+                </p>
+              ))
+            ) : (
+              <p className="text-base md:text-lg leading-relaxed font-quicksand font-light opacity-90">
+                {about?.biography || 'No biography available.'}
+              </p>
+            )}
           </div>
 
           {/* Theben Image - Right */}
           <div className="flex-1 w-full max-w-md">
             <div className="relative w-full">
               <Image
-                src="/theben.jfif"
+                src={about?.image || '/theben.jfif'}
                 alt="Theben"
                 width={600}
                 height={800}
                 className="w-full h-auto object-contain"
                 priority
                 quality={90}
+                onError={(e) => {
+                  e.currentTarget.src = '/theben.jfif'
+                }}
               />
             </div>
           </div>
@@ -39,4 +99,3 @@ export default function About() {
     </section>
   )
 }
-

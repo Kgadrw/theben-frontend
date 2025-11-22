@@ -1,8 +1,46 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://theben.onrender.com/api'
+
+interface Album {
+  _id: string
+  title: string
+  description: string
+  image: string
+}
+
 export default function Music() {
+  const [albums, setAlbums] = useState<Album[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchAlbums = async () => {
+      try {
+        const response = await fetch(`${API_URL}/music`)
+        if (response.ok) {
+          const data = await response.json()
+          setAlbums(data || [])
+        }
+      } catch (error) {
+        console.error('Error fetching albums:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchAlbums()
+  }, [])
+
+  // Fallback to default albums if API returns empty or fails
+  const displayAlbums = albums.length > 0 ? albums : [
+    { _id: '1', title: 'Album Title', description: 'Album description or release date', image: '/album 1.jpg' },
+    { _id: '2', title: 'Album Title', description: 'Album description or release date', image: '/album 1.jpg' },
+    { _id: '3', title: 'Album Title', description: 'Album description or release date', image: '/album 1.jpg' },
+  ]
+
   return (
     <section className="relative w-full min-h-screen bg-black py-20 px-4">
       <div className="max-w-7xl mx-auto">
@@ -12,76 +50,41 @@ export default function Music() {
         </h1>
         
         {/* Albums */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
-        {/* First Album */}
-        <div className="flex flex-col items-center gap-6 flex-1 max-w-md">
-          <div className="relative w-full">
-            <Image
-              src="/album 1.jpg"
-              alt="Music Album"
-              width={600}
-              height={800}
-              className="w-full h-auto object-contain"
-              priority
-              quality={90}
-            />
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="text-white font-quicksand font-light">Loading albums...</div>
           </div>
-          <div className="text-center">
-            <h2 className="text-white text-2xl font-quicksand font-light uppercase tracking-wider mb-2">
-              Album Title
-            </h2>
-            <p className="text-white text-sm opacity-80">
-              Album description or release date
-            </p>
+        ) : (
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
+            {displayAlbums.slice(0, 3).map((album) => (
+              <div key={album._id} className="flex flex-col items-center gap-6 flex-1 max-w-md">
+                <div className="relative w-full">
+                  <Image
+                    src={album.image.startsWith('http') ? album.image : album.image.startsWith('/') ? album.image : `/${album.image}`}
+                    alt={album.title}
+                    width={600}
+                    height={800}
+                    className="w-full h-auto object-cover"
+                    priority
+                    quality={90}
+                    onError={(e) => {
+                      e.currentTarget.src = '/album 1.jpg'
+                    }}
+                  />
+                </div>
+                <div className="text-center">
+                  <h2 className="text-white text-2xl font-quicksand font-light uppercase tracking-wider mb-2">
+                    {album.title}
+                  </h2>
+                  <p className="text-white text-sm opacity-80">
+                    {album.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-
-        {/* Second Album */}
-        <div className="flex flex-col items-center gap-6 flex-1 max-w-md">
-          <div className="relative w-full">
-            <Image
-              src="/album 1.jpg"
-              alt="Music Album"
-              width={600}
-              height={800}
-              className="w-full h-auto object-contain"
-              quality={90}
-            />
-          </div>
-          <div className="text-center">
-            <h2 className="text-white text-2xl font-quicksand font-light uppercase tracking-wider mb-2">
-              Album Title
-            </h2>
-            <p className="text-white text-sm opacity-80">
-              Album description or release date
-            </p>
-          </div>
-        </div>
-
-        {/* Third Album */}
-        <div className="flex flex-col items-center gap-6 flex-1 max-w-md">
-          <div className="relative w-full">
-            <Image
-              src="/album 1.jpg"
-              alt="Music Album"
-              width={600}
-              height={800}
-              className="w-full h-auto object-contain"
-              quality={90}
-            />
-          </div>
-          <div className="text-center">
-            <h2 className="text-white text-2xl font-quicksand font-light uppercase tracking-wider mb-2">
-              Album Title
-            </h2>
-            <p className="text-white text-sm opacity-80">
-              Album description or release date
-            </p>
-          </div>
-        </div>
-      </div>
+        )}
       </div>
     </section>
   )
 }
-

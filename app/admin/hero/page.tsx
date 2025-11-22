@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { FaUpload, FaSave, FaYoutube, FaFileVideo } from 'react-icons/fa'
+import { FaUpload, FaSave, FaYoutube, FaFileVideo, FaPlay } from 'react-icons/fa'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://theben.onrender.com/api'
 
 export default function AdminHero() {
   const [videoId, setVideoId] = useState('')

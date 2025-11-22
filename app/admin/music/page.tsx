@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react'
 import { FaEdit, FaTrash, FaPlus, FaImage, FaUpload } from 'react-icons/fa'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://theben.onrender.com/api'
 
 const albums = [
   { id: 1, title: 'Album Title', description: 'Album description or release date', image: '/album 1.jpg' },

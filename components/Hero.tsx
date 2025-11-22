@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://theben.onrender.com/api'
 
 export default function Hero() {
   const [videoId, setVideoId] = useState('8ufRrmc6Bj4') // Default video ID

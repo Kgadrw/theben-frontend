@@ -14,12 +14,14 @@ import {
   FaSignOutAlt,
   FaUser,
   FaPlay,
-  FaBell
+  FaBell,
+  FaUserCircle
 } from 'react-icons/fa'
 
 const sidebarItems = [
   { name: 'Dashboard', href: '/admin', icon: FaHome },
   { name: 'Hero Video', href: '/admin/hero', icon: FaPlay },
+  { name: 'About', href: '/admin/about', icon: FaUserCircle },
   { name: 'Music', href: '/admin/music', icon: FaMusic },
   { name: 'Videos', href: '/admin/videos', icon: FaVideo },
   { name: 'Tours', href: '/admin/tours', icon: FaCalendarAlt },

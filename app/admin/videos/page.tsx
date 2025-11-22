@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react'
 import { FaEdit, FaTrash, FaPlus, FaFileVideo, FaYoutube } from 'react-icons/fa'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://theben.onrender.com/api'
 
 const videos = [
   { id: 1, title: 'Video 1', videoId: '8ufRrmc6Bj4' },
