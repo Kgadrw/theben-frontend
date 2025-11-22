@@ -8,7 +8,7 @@ const stats = [
     name: 'Total Albums', 
     value: '3', 
     icon: FaMusic, 
-    gradient: 'from-purple-600 to-pink-600',
+    gradient: 'bg-purple-600',
     href: '/admin/music',
     change: '+2 this month'
   },
@@ -16,7 +16,7 @@ const stats = [
     name: 'Total Videos', 
     value: '2', 
     icon: FaVideo, 
-    gradient: 'from-blue-600 to-cyan-600',
+    gradient: 'bg-blue-600',
     href: '/admin/videos',
     change: '+1 this week'
   },
@@ -24,7 +24,7 @@ const stats = [
     name: 'Upcoming Tours', 
     value: '1', 
     icon: FaCalendarAlt, 
-    gradient: 'from-green-600 to-emerald-600',
+    gradient: 'bg-green-600',
     href: '/admin/tours',
     change: 'Next: Jan 2026'
   },
@@ -32,7 +32,7 @@ const stats = [
     name: 'Total Views', 
     value: '12.4K', 
     icon: FaEye, 
-    gradient: 'from-[#ff6b6b] to-[#ff8e8e]',
+    gradient: 'bg-[#ff6b6b]',
     href: '#',
     change: '+24% this month'
   },
@@ -56,8 +56,8 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-8">
       {/* Welcome Header */}
-      <div className="bg-gradient-to-r from-black via-gray-900 to-black border border-gray-800 rounded-xl p-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#ff6b6b]/5 via-transparent to-transparent"></div>
+      <div className="bg-black border border-gray-800 rounded-xl p-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10">
           <h1 className="text-4xl md:text-5xl font-quicksand font-light text-white uppercase tracking-wider mb-3">
             Welcome Back
@@ -79,10 +79,10 @@ export default function AdminDashboard() {
               className="group"
             >
               <div className="bg-black border border-gray-800 rounded-xl p-6 hover:border-gray-700 transition-all duration-300 hover:shadow-lg hover:shadow-[#ff6b6b]/10 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff6b6b]/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#ff6b6b] rounded-bl-full opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-4">
-                    <div className={`bg-gradient-to-br ${stat.gradient} p-3 rounded-xl shadow-lg`}>
+                    <div className={`${stat.gradient} p-3 rounded-xl shadow-lg`}>
                       <IconComponent className="w-6 h-6 text-white" />
                     </div>
                     <div className="text-right">

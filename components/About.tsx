@@ -82,7 +82,7 @@ export default function About() {
             <div className="relative w-full">
               <Image
                 src={about?.image || '/theben.jfif'}
-                alt="Theben"
+                alt="The Ben - Rwandan Artist and Musician Benjamin Mugisha"
                 width={600}
                 height={800}
                 className="w-full h-auto object-contain"

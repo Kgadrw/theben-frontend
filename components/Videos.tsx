@@ -98,7 +98,7 @@ export default function Videos() {
                   >
                     <Image
                       src={getVideoThumbnail(video)}
-                      alt={video.title}
+                      alt={`${video.title} - The Ben Rwandan Artist Music Video`}
                       width={900}
                       height={600}
                       className="w-full h-auto object-contain"

@@ -176,8 +176,8 @@ export default function AdminHero() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-black via-gray-900 to-black border border-gray-800 rounded-xl p-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#ff6b6b]/5 via-transparent to-transparent"></div>
+      <div className="bg-black border border-gray-800 rounded-xl p-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10">
           <h1 className="text-3xl md:text-4xl font-quicksand font-light text-white uppercase tracking-wider mb-2">
             Hero Video Management

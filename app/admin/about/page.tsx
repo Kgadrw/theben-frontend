@@ -120,8 +120,8 @@ export default function AdminAbout() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-black via-gray-900 to-black border border-gray-800 rounded-xl p-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#ff6b6b]/5 via-transparent to-transparent"></div>
+      <div className="bg-black border border-gray-800 rounded-xl p-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10">
           <h1 className="text-3xl md:text-4xl font-quicksand font-light text-white uppercase tracking-wider mb-2">
             About / Biography Management
@@ -269,7 +269,7 @@ export default function AdminAbout() {
             <button
               type="submit"
               disabled={loading}
-              className="bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white px-8 py-3 rounded-lg font-quicksand font-light uppercase tracking-wider hover:shadow-lg hover:shadow-[#ff6b6b]/30 transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed border border-[#ff6b6b]/20"
+              className="bg-[#ff6b6b] text-white px-8 py-3 rounded-lg font-quicksand font-light uppercase tracking-wider hover:shadow-lg hover:shadow-[#ff6b6b]/30 transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed border border-[#ff6b6b]/20"
             >
               {loading ? (
                 <>

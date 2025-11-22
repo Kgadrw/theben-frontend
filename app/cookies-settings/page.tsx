@@ -1,18 +1,42 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { getCookiePreferences, saveCookiePreferences, type CookiePreferences } from '@/lib/cookies'
 
 export default function CookiesSettingsPage() {
   const [essential, setEssential] = useState(true)
   const [analytics, setAnalytics] = useState(false)
   const [preferences, setPreferences] = useState(false)
   const [marketing, setMarketing] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    // Load saved preferences
+    const savedPrefs = getCookiePreferences()
+    if (savedPrefs) {
+      setEssential(savedPrefs.essential)
+      setAnalytics(savedPrefs.analytics)
+      setPreferences(savedPrefs.preferences)
+      setMarketing(savedPrefs.marketing)
+    }
+  }, [])
 
   const handleSave = () => {
-    // Save cookie preferences
-    alert('Cookie preferences saved!')
+    const cookiePrefs: CookiePreferences = {
+      essential,
+      analytics,
+      preferences,
+      marketing,
+    }
+    
+    saveCookiePreferences(cookiePrefs)
+    setSaved(true)
+    
+    setTimeout(() => {
+      setSaved(false)
+    }, 3000)
   }
 
   return (
@@ -128,10 +152,15 @@ export default function CookiesSettingsPage() {
               <div className="pt-6">
                 <button
                   onClick={handleSave}
-                  className="inline-block text-white font-quicksand font-light uppercase tracking-wider border border-white px-8 py-3 transition-all duration-300 hover:bg-white hover:text-black hover:border-[#ff6b6b]"
+                  className="inline-block text-white font-quicksand font-light uppercase tracking-wider border border-white px-8 py-3 transition-all duration-300 hover:bg-white hover:text-black hover:border-[#ff6b6b] relative"
                 >
                   Save Preferences
                 </button>
+                {saved && (
+                  <p className="mt-4 text-green-400 font-quicksand font-light text-sm">
+                    ✓ Preferences saved successfully!
+                  </p>
+                )}
               </div>
             </div>
           </div>

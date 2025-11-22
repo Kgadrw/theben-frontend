@@ -53,9 +53,9 @@ export default function AdminLayout({
       `}>
         <div className="flex flex-col h-full">
           {/* Logo/Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-800 bg-gradient-to-r from-black to-gray-900">
+          <div className="flex items-center justify-between p-6 border-b border-gray-800 bg-black">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#ff6b6b] to-[#ff8e8e] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-[#ff6b6b] flex items-center justify-center">
                 <span className="text-white font-comforter text-2xl lowercase">t</span>
               </div>
               <div>
@@ -84,7 +84,7 @@ export default function AdminLayout({
                   className={`
                     flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-300 group
                     ${active 
-                      ? 'bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white shadow-lg shadow-[#ff6b6b]/20' 
+                      ? 'bg-[#ff6b6b] text-white shadow-lg shadow-[#ff6b6b]/20' 
                       : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                     }
                   `}
@@ -97,16 +97,7 @@ export default function AdminLayout({
           </nav>
 
           {/* User Section */}
-          <div className="p-4 border-t border-gray-800 bg-gradient-to-t from-black to-gray-900">
-            <div className="flex items-center gap-3 px-4 py-3 mb-2 rounded-lg bg-gray-900 border border-gray-800">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#ff6b6b] to-[#ff8e8e] flex items-center justify-center">
-                <FaUser className="w-5 h-5 text-white" />
-              </div>
-              <div className="flex-1">
-                <p className="text-white font-quicksand font-light text-sm">Admin User</p>
-                <p className="text-gray-400 font-quicksand font-light text-xs">Administrator</p>
-              </div>
-            </div>
+          <div className="p-4 border-t border-gray-800 bg-black">
             <button className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-gray-300 hover:bg-gray-800 hover:text-[#ff6b6b] transition-all duration-200 group border border-transparent hover:border-gray-800">
               <FaSignOutAlt className="w-5 h-5 text-gray-400 group-hover:text-[#ff6b6b] transition-colors" />
               <span className="font-quicksand font-light uppercase tracking-wider text-sm">Logout</span>

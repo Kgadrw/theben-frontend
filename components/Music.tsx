@@ -10,6 +10,7 @@ interface Album {
   title: string
   description: string
   image: string
+  hoverImage?: string
 }
 
 export default function Music() {
@@ -57,20 +58,33 @@ export default function Music() {
         ) : (
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
             {displayAlbums.slice(0, 3).map((album) => (
-              <div key={album._id} className="flex flex-col items-center gap-6 flex-1 max-w-md">
+              <div key={album._id} className="flex flex-col items-center gap-6 flex-1 max-w-md group">
                 <div className="relative w-full">
                   <Image
                     src={album.image.startsWith('http') ? album.image : album.image.startsWith('/') ? album.image : `/${album.image}`}
-                    alt={album.title}
+                    alt={`${album.title} - The Ben Rwandan Artist Album Cover`}
                     width={600}
                     height={800}
-                    className="w-full h-auto object-cover"
+                    className={`w-full h-auto transition-opacity duration-300 ${album.hoverImage ? 'group-hover:opacity-0' : ''}`}
                     priority
                     quality={90}
                     onError={(e) => {
                       e.currentTarget.src = '/album 1.jpg'
                     }}
                   />
+                  {album.hoverImage && (
+                    <Image
+                      src={album.hoverImage.startsWith('http') ? album.hoverImage : album.hoverImage.startsWith('/') ? album.hoverImage : `/${album.hoverImage}`}
+                      alt={`${album.title} - The Ben Rwandan Artist Album Cover Hover`}
+                      width={600}
+                      height={800}
+                      className="w-full h-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute top-0 left-0"
+                      quality={90}
+                      onError={(e) => {
+                        e.currentTarget.src = '/album 1.jpg'
+                      }}
+                    />
+                  )}
                 </div>
                 <div className="text-center">
                   <h2 className="text-white text-2xl font-quicksand font-light uppercase tracking-wider mb-2">

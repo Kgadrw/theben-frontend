@@ -76,7 +76,7 @@ export default function Navbar() {
   const isHomePage = pathname === '/'
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 w-full flex flex-col sm:flex-row items-center py-3 px-4 sm:py-6 sm:pr-12 sm:pl-0 z-[1000] ${isHomePage ? 'bg-transparent' : 'bg-black'}`} style={{ width: '100vw' }}>
+    <nav className={`absolute top-0 left-0 right-0 w-full flex flex-col sm:flex-row items-center py-3 px-4 sm:py-6 sm:pr-12 sm:pl-0 z-[1000] ${isHomePage ? 'bg-transparent' : 'bg-black'}`}>
       {/* Mobile: Header with Artist Name and Hamburger */}
       <div className="w-full flex items-center justify-between sm:hidden">
         <h1 className="text-3xl font-comforter font-normal tracking-[2px] text-white m-0 lowercase">
@@ -107,6 +107,13 @@ export default function Navbar() {
           Home
         </Link>
         <Link 
+          href="/about" 
+            className={getLinkClassName('/about')}
+          style={{ fontOpticalSizing: 'auto' }}
+        >
+          About
+        </Link>
+        <Link 
           href="/music" 
             className={getLinkClassName('/music')}
           style={{ fontOpticalSizing: 'auto' }}
@@ -131,7 +138,7 @@ export default function Navbar() {
       
       {/* Center: Artist Name */}
         <div className="flex-1 flex justify-center mx-8 lg:mx-12">
-          <h1 className="text-3xl lg:text-[2.5rem] font-comforter font-normal tracking-[2px] text-white m-0 lowercase">
+          <h1 className="text-3xl lg:text-[2.5rem] font-comforter font-normal tracking-[2px] text-white m-0 lowercase" itemProp="name">
           theben
         </h1>
       </div>
@@ -170,6 +177,14 @@ export default function Navbar() {
                 style={{ fontOpticalSizing: 'auto' }}
               >
                 Home
+              </Link>
+              <Link 
+                href="/about" 
+                onClick={closeMenu}
+                className={getLinkClassName('/about', true)}
+                style={{ fontOpticalSizing: 'auto' }}
+              >
+                About
               </Link>
               <Link 
                 href="/music" 

@@ -40,8 +40,8 @@ export default function Hero() {
     : ''
 
   return (
-    <section className="fixed inset-0 w-screen h-screen overflow-hidden">
-      <div className="absolute inset-0 w-full h-full md:h-full z-[1] overflow-hidden">
+    <section className="relative w-full h-[60vh] md:h-screen overflow-hidden">
+      <div className="absolute inset-0 w-full h-full z-[1] overflow-hidden">
         {videoUrl ? (
           // Cloudinary video
           <video
@@ -58,29 +58,30 @@ export default function Hero() {
             loop
             playsInline
             key={videoUrl}
+            aria-label="The Ben - Rwandan Artist Music Video"
           />
         ) : (
           // YouTube video
-          <iframe
+        <iframe
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none border-0 w-full h-full object-cover md:w-full md:h-full"
-            style={{
-              width: '100vw',
-              height: '56.25vw',
-              minHeight: '100vh',
-              minWidth: '177.78vh',
-            }}
-            src={embedUrl}
-            title="Hero Video"
-            allow="autoplay; encrypted-media"
-            allowFullScreen={false}
-            frameBorder="0"
+          style={{
+            width: '100vw',
+            height: '56.25vw',
+            minHeight: '100vh',
+            minWidth: '177.78vh',
+          }}
+          src={embedUrl}
+            title="The Ben - Rwandan Artist Music Video"
+          allow="autoplay; encrypted-media"
+          allowFullScreen={false}
+          frameBorder="0"
             playsInline
             key={videoId}
-          />
+        />
         )}
       </div>
       {/* Dark overlay to reduce brightness */}
-      <div className="absolute inset-0 w-full h-full md:h-full bg-black opacity-40 z-[2] pointer-events-none"></div>
+      <div className="absolute inset-0 w-full h-full bg-black opacity-40 z-[2] pointer-events-none"></div>
     </section>
   )
 }
