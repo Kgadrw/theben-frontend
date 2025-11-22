@@ -25,14 +25,14 @@ export const metadata: Metadata = {
   authors: [{ name: 'The Ben' }],
   creator: 'The Ben',
   publisher: 'The Ben',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://theben.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://thebenofficial.com'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://theben.com',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://thebenofficial.com',
     siteName: 'The Ben - Rwandan Artist',
     title: 'The Ben | Rwandan Artist | Official Website',
     description: 'The Ben (Benjamin Mugisha) is a prominent Rwandan artist and musician from East Africa. Discover his latest music, videos, tours, and performances.',
@@ -67,6 +67,11 @@ export const metadata: Metadata = {
     // google: 'your-google-verification-code',
     // yandex: 'your-yandex-verification-code',
   },
+  icons: {
+    icon: '/logo.jpg',
+    shortcut: '/logo.jpg',
+    apple: '/logo.jpg',
+  },
 }
 
 export const viewport: Viewport = {
@@ -76,6 +81,8 @@ export const viewport: Viewport = {
 }
 
 import CookiesModal from '@/components/CookiesModal'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function RootLayout({
   children,
@@ -85,7 +92,28 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${quicksand.variable} ${comforterBrush.variable}`}>
       <body itemScope itemType="https://schema.org/Person">
-        {children}
+        {/* Logo Header */}
+        <header className="w-full bg-black border-b border-gray-900 py-4 px-4 sm:px-6 z-50 fixed top-0 left-0 right-0">
+          <div className="max-w-7xl mx-auto flex items-center gap-4">
+            <Link href="/" className="flex items-center gap-4 hover:opacity-80 transition-opacity">
+              <Image
+                src="/logo.jpg"
+                alt="The Ben Logo"
+                width={60}
+                height={60}
+                className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
+                priority
+              />
+              <h1 className="text-white text-xl sm:text-2xl md:text-3xl font-quicksand font-light uppercase tracking-wider">
+                The Ben
+              </h1>
+            </Link>
+          </div>
+        </header>
+        {/* Add padding to account for fixed header */}
+        <div className="pt-16 sm:pt-20">
+          {children}
+        </div>
         <CookiesModal />
       </body>
     </html>
