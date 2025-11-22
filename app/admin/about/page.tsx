@@ -10,6 +10,8 @@ interface AboutData {
   biography: string
   image: string
   title: string
+  createdAt?: string
+  updatedAt?: string
 }
 
 export default function AdminAbout() {

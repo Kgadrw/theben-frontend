@@ -75,8 +75,7 @@ export default function Hero() {
           allow="autoplay; encrypted-media"
           allowFullScreen={false}
           frameBorder="0"
-            playsInline
-            key={videoId}
+          key={videoId}
         />
         )}
       </div>

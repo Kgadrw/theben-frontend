@@ -59,3 +59,24 @@ a {
   scrollbar-color: #333 #000;
 }
 
+/* Skeleton Loader Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(
+    90deg,
+    rgba(31, 41, 55, 0.4) 0%,
+    rgba(17, 24, 39, 0.6) 50%,
+    rgba(31, 41, 55, 0.4) 100%
+  );
+  background-size: 200% 100%;
+}
+

@@ -20,7 +20,10 @@ export default function Music() {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await fetch(`${API_URL}/music`)
+        const response = await fetch(`${API_URL}/music`, {
+          cache: 'no-store',
+          next: { revalidate: 0 }
+        })
         if (response.ok) {
           const data = await response.json()
           setAlbums(data || [])
@@ -51,11 +54,7 @@ export default function Music() {
         </h1>
         
         {/* Albums */}
-        {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="text-white font-quicksand font-light">Loading albums...</div>
-          </div>
-        ) : (
+        {!loading && (
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
             {displayAlbums.slice(0, 3).map((album) => (
               <div key={album._id} className="flex flex-col items-center gap-6 flex-1 max-w-md group">
@@ -67,6 +66,7 @@ export default function Music() {
                     height={800}
                     className={`w-full h-auto transition-opacity duration-300 ${album.hoverImage ? 'group-hover:opacity-0' : ''}`}
                     priority
+                    loading="eager"
                     quality={90}
                     onError={(e) => {
                       e.currentTarget.src = '/album 1.jpg'

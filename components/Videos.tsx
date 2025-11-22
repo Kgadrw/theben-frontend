@@ -20,7 +20,10 @@ export default function Videos() {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await fetch(`${API_URL}/videos`)
+        const response = await fetch(`${API_URL}/videos`, {
+          cache: 'no-store',
+          next: { revalidate: 0 }
+        })
         if (response.ok) {
           const data = await response.json()
           setVideos(data || [])
@@ -71,11 +74,7 @@ export default function Videos() {
         </h1>
         
         {/* Videos */}
-        {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="text-white font-quicksand font-light">Loading videos...</div>
-          </div>
-        ) : (
+        {!loading && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 justify-items-center">
             {displayVideos.map((video) => (
               <div key={video._id} className="flex flex-col items-center gap-6 w-full max-w-2xl">
@@ -102,6 +101,8 @@ export default function Videos() {
                       width={900}
                       height={600}
                       className="w-full h-auto object-contain"
+                      priority
+                      loading="eager"
                       quality={90}
                       onError={(e) => {
                         e.currentTarget.src = '/placeholder.jpg'

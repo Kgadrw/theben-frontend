@@ -22,18 +22,20 @@ export default function AdminSettings() {
   const handleChange = (field: string, value: string) => {
     if (field.includes('.')) {
       const [parent, child] = field.split('.')
-      setSettings({
-        ...settings,
-        [parent]: {
-          ...settings[parent as keyof typeof settings],
-          [child]: value,
-        },
-      })
+      if (parent === 'socialMedia') {
+        setSettings({
+          ...settings,
+          socialMedia: {
+            ...settings.socialMedia,
+            [child]: value,
+          },
+        })
+      }
     } else {
       setSettings({
         ...settings,
         [field]: value,
-      })
+      } as typeof settings)
     }
   }
 
