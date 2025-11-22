@@ -81,8 +81,6 @@ export const viewport: Viewport = {
 }
 
 import CookiesModal from '@/components/CookiesModal'
-import Image from 'next/image'
-import Link from 'next/link'
 
 export default function RootLayout({
   children,
@@ -92,28 +90,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${quicksand.variable} ${comforterBrush.variable}`}>
       <body itemScope itemType="https://schema.org/Person">
-        {/* Logo Header */}
-        <header className="w-full bg-black border-b border-gray-900 py-4 px-4 sm:px-6 z-50 fixed top-0 left-0 right-0">
-          <div className="max-w-7xl mx-auto flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-4 hover:opacity-80 transition-opacity">
-              <Image
-                src="/logo.jpg"
-                alt="The Ben Logo"
-                width={60}
-                height={60}
-                className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
-                priority
-              />
-              <h1 className="text-white text-xl sm:text-2xl md:text-3xl font-quicksand font-light uppercase tracking-wider">
-                The Ben
-              </h1>
-            </Link>
-          </div>
-        </header>
-        {/* Add padding to account for fixed header */}
-        <div className="pt-16 sm:pt-20">
-          {children}
-        </div>
+        {children}
         <CookiesModal />
       </body>
     </html>
