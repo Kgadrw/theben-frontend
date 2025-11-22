@@ -88,7 +88,7 @@ export default function AdminMusic() {
                 <FaImage className="w-6 h-6 text-purple-400" />
                 Add New Album
               </h2>
-            <form className="space-y-4">
+              <form className="space-y-4">
               <div>
                 <label className="block text-gray-300 font-quicksand font-light mb-2">
                   Album Title
@@ -212,7 +212,8 @@ export default function AdminMusic() {
                   Add Album
                 </button>
               </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       )}

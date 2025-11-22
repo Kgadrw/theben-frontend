@@ -19,23 +19,27 @@ export default function AdminVideos() {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-quicksand font-light text-white uppercase tracking-wider mb-2">
-            Video Management
-          </h1>
-          <p className="text-gray-400 font-quicksand font-light">
-            Manage video content
-          </p>
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-black via-gray-900 to-black border border-gray-800 rounded-xl p-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-transparent to-transparent"></div>
+        <div className="relative z-10 flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-quicksand font-light text-white uppercase tracking-wider mb-2">
+              Video Management
+            </h1>
+            <p className="text-gray-400 font-quicksand font-light">
+              Manage video content
+            </p>
+          </div>
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white px-6 py-3 rounded-xl font-quicksand font-light uppercase tracking-wider hover:shadow-lg hover:shadow-[#ff6b6b]/30 transition-all duration-300 flex items-center gap-2 border border-[#ff6b6b]/20"
+          >
+            <FaPlus className="w-5 h-5" />
+            Add Video
+          </button>
         </div>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-[#ff6b6b] text-white px-6 py-2 rounded-lg font-quicksand font-light uppercase tracking-wider hover:bg-opacity-80 transition-colors flex items-center gap-2"
-        >
-          <FaPlus className="w-4 h-4" />
-          Add Video
-        </button>
       </div>
 
       {/* Videos Grid */}
@@ -43,7 +47,7 @@ export default function AdminVideos() {
         {videos.map((video) => (
           <div
             key={video.id}
-            className="bg-black border border-gray-800 rounded-lg overflow-hidden"
+            className="bg-black border border-gray-800 rounded-xl overflow-hidden hover:border-gray-700 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group"
           >
             <div className="aspect-video bg-gray-800 relative">
               <img
@@ -73,12 +77,15 @@ export default function AdminVideos() {
 
       {/* Add Video Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-black border border-gray-800 rounded-lg p-6 max-w-2xl w-full">
-            <h2 className="text-2xl font-quicksand font-light text-white uppercase tracking-wider mb-6">
-              Add New Video
-            </h2>
-            <form className="space-y-4">
+        <div className="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-black border border-gray-800 rounded-xl p-8 max-w-2xl w-full relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-transparent to-transparent"></div>
+            <div className="relative z-10">
+              <h2 className="text-2xl md:text-3xl font-quicksand font-light text-white uppercase tracking-wider mb-6 flex items-center gap-2">
+                <FaVideo className="w-6 h-6 text-blue-400" />
+                Add New Video
+              </h2>
+              <form className="space-y-4">
               <div>
                 <label className="block text-gray-300 font-quicksand font-light mb-2">
                   YouTube Video URL
@@ -218,7 +225,8 @@ export default function AdminVideos() {
                   Add Video
                 </button>
               </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       )}
