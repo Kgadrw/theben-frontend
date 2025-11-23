@@ -34,7 +34,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# backend folder
-/backend
-backend/
+# backend - ignore node_modules and .env but allow code files
+/backend/node_modules
+/backend/.env
+/backend/.env.local
+/backend/uploads/
 
