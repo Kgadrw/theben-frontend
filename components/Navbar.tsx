@@ -64,18 +64,14 @@ export default function Navbar() {
   }
 
   const getLinkClassName = (path: string, isMobile: boolean = false) => {
-    const baseClasses = `font-quicksand font-light uppercase tracking-wider transition-all duration-300 relative pb-1 ${
+    const baseClasses = `font-quicksand font-light uppercase tracking-wider transition-colors duration-300 ${
       isMobile ? 'text-base' : 'text-sm lg:text-base'
     }`
     const activeClasses = isActive(path)
       ? 'text-[#ff6b6b] font-medium'
       : 'text-white hover:text-[#ff6b6b]'
     
-    const underlineClasses = isActive(path)
-      ? 'after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#ff6b6b]'
-      : 'after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#ff6b6b] after:transition-all after:duration-300 hover:after:w-full'
-    
-    return `${baseClasses} ${activeClasses} ${underlineClasses}`
+    return `${baseClasses} ${activeClasses}`
   }
 
   const isHomePage = pathname === '/'
