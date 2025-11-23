@@ -98,7 +98,7 @@ export default function Navbar() {
       {/* Desktop Layout */}
       <div className="hidden sm:flex w-full items-center">
       {/* Left: Navigation Links */}
-        <div className="flex gap-6 lg:gap-8 items-center flex-1 pl-12 mr-8 lg:mr-12">
+        <div className="flex gap-4 lg:gap-4 items-center flex-1 pl-12 mr-8 lg:mr-12">
         <Link 
           href="/" 
             className={getLinkClassName('/')}
@@ -144,7 +144,7 @@ export default function Navbar() {
       </div>
       
         {/* Right: Social Media Icons */}
-        <div className="flex gap-4 lg:gap-6 items-center flex-1 justify-end">
+        <div className="flex gap-2 lg:gap-4 items-center flex-1 justify-end">
           {socialLinks.map((social) => {
             const IconComponent = social.icon
             return (
