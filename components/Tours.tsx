@@ -93,7 +93,7 @@ export default function Tours() {
                       {tour.description}
                     </p>
                   </div>
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 self-end md:self-auto">
                     <a
                       href={tour.ticketUrl || '#'}
                       target={tour.ticketUrl && tour.ticketUrl !== '#' ? '_blank' : undefined}
