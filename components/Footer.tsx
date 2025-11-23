@@ -16,7 +16,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-black border-t border-gray-800 py-6 px-4">
+    <footer className="w-full bg-black border-t border-gray-800 py-6 px-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Social Media Icons */}
         <div className="flex gap-4 items-center">

@@ -66,7 +66,7 @@ export default function Videos() {
   }
 
   return (
-    <section className="relative w-full min-h-screen bg-black py-20 px-4">
+    <section className="relative w-full min-h-screen bg-black py-20 px-12">
       <div className="max-w-7xl mx-auto">
         {/* Videos Title */}
         <h1 className="text-white text-4xl md:text-5xl font-quicksand font-light uppercase tracking-wider mb-12 md:mb-16 text-left">
