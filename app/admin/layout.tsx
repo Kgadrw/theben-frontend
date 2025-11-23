@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { 
   FaHome, 
   FaMusic, 
@@ -17,6 +17,7 @@ import {
   FaBell,
   FaUserCircle
 } from 'react-icons/fa'
+import { isAuthenticated, logout as logoutUser } from '@/lib/auth'
 
 const sidebarItems = [
   { name: 'Dashboard', href: '/admin', icon: FaHome },
@@ -34,13 +35,49 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [isAuth, setIsAuth] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
+
+  useEffect(() => {
+    // Skip authentication check for login page
+    if (pathname === '/admin/login') {
+      setIsAuth(true)
+      return
+    }
+    
+    // Check authentication for other admin pages
+    if (!isAuthenticated()) {
+      router.push('/admin/login')
+    } else {
+      setIsAuth(true)
+    }
+  }, [router, pathname])
 
   const isActive = (href: string) => {
     if (href === '/admin') {
       return pathname === '/admin'
     }
     return pathname.startsWith(href)
+  }
+
+  const handleLogout = () => {
+    logoutUser()
+    router.push('/admin/login')
+  }
+
+  // If on login page, render children without admin layout
+  if (pathname === '/admin/login') {
+    return <>{children}</>
+  }
+
+  // Show loading only while checking authentication (for non-login pages)
+  if (!isAuth) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white font-quicksand font-light">Loading...</div>
+      </div>
+    )
   }
 
   return (
@@ -98,7 +135,10 @@ export default function AdminLayout({
 
           {/* User Section */}
           <div className="p-4 border-t border-gray-800 bg-black">
-            <button className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-gray-300 hover:bg-gray-800 hover:text-[#ff6b6b] transition-all duration-200 group border border-transparent hover:border-gray-800">
+            <button 
+              onClick={handleLogout}
+              className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-gray-300 hover:bg-gray-800 hover:text-[#ff6b6b] transition-all duration-200 group border border-transparent hover:border-gray-800"
+            >
               <FaSignOutAlt className="w-5 h-5 text-gray-400 group-hover:text-[#ff6b6b] transition-colors" />
               <span className="font-quicksand font-light uppercase tracking-wider text-sm">Logout</span>
             </button>
