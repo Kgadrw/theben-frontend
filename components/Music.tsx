@@ -59,7 +59,7 @@ export default function Music() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
             {displayAlbums.slice(0, 3).map((album) => {
               const albumContent = (
-                <div className="flex flex-col items-center gap-6 flex-1 max-w-md group">
+                <div className="flex flex-col items-center gap-6 flex-1 max-w-md">
                   <div className="relative w-full">
                     <Image
                       src={album.image.startsWith('http') ? album.image : album.image.startsWith('/') ? album.image : `/${album.image}`}
@@ -105,12 +105,12 @@ export default function Music() {
                   href={album.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="cursor-pointer hover:opacity-90 transition-opacity"
+                  className="cursor-pointer hover:opacity-90 transition-all duration-300 block group"
                 >
                   {albumContent}
                 </a>
               ) : (
-                <div key={album._id}>
+                <div key={album._id} className="opacity-75 group">
                   {albumContent}
                 </div>
               )

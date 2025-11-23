@@ -64,13 +64,18 @@ export default function Navbar() {
   }
 
   const getLinkClassName = (path: string, isMobile: boolean = false) => {
-    const baseClasses = `font-quicksand font-light uppercase tracking-wider transition-colors duration-300 ${
-      isMobile ? 'text-base text-center' : 'text-sm lg:text-base'
+    const baseClasses = `font-quicksand font-light uppercase tracking-wider transition-all duration-300 relative pb-1 ${
+      isMobile ? 'text-base' : 'text-sm lg:text-base'
     }`
     const activeClasses = isActive(path)
-      ? 'text-[#ff6b6b]'
+      ? 'text-[#ff6b6b] font-medium'
       : 'text-white hover:text-[#ff6b6b]'
-    return `${baseClasses} ${activeClasses}`
+    
+    const underlineClasses = isActive(path)
+      ? 'after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#ff6b6b]'
+      : 'after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#ff6b6b] after:transition-all after:duration-300 hover:after:w-full'
+    
+    return `${baseClasses} ${activeClasses} ${underlineClasses}`
   }
 
   const isHomePage = pathname === '/'
@@ -87,11 +92,7 @@ export default function Navbar() {
           className="text-white p-2 focus:outline-none"
           aria-label="Toggle menu"
         >
-          {isMenuOpen ? (
-            <FaTimes className="w-6 h-6" />
-          ) : (
-            <FaBars className="w-6 h-6" />
-          )}
+          <FaBars className="w-6 h-6" />
         </button>
       </div>
 
@@ -164,76 +165,105 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       {isMenuOpen && (
-        <div className="absolute top-full left-0 right-0 w-full bg-black bg-opacity-95 backdrop-blur-md sm:hidden border-t border-gray-800">
-          <div className="flex flex-col py-6 px-4 gap-8">
-            {/* Navigation Links */}
-            <div className="flex flex-col gap-4">
-              <Link 
-                href="/" 
-                onClick={closeMenu}
-                className={getLinkClassName('/', true)}
-                style={{ fontOpticalSizing: 'auto' }}
-              >
-                Home
-              </Link>
-              <Link 
-                href="/about" 
-                onClick={closeMenu}
-                className={getLinkClassName('/about', true)}
-                style={{ fontOpticalSizing: 'auto' }}
-              >
-                About
-              </Link>
-              <Link 
-                href="/music" 
-                onClick={closeMenu}
-                className={getLinkClassName('/music', true)}
-                style={{ fontOpticalSizing: 'auto' }}
-              >
-                Music
-              </Link>
-              <Link 
-                href="/videos" 
-                onClick={closeMenu}
-                className={getLinkClassName('/videos', true)}
-                style={{ fontOpticalSizing: 'auto' }}
-              >
-                Videos
-              </Link>
-              <Link 
-                href="/tour" 
-                onClick={closeMenu}
-                className={getLinkClassName('/tour', true)}
-                style={{ fontOpticalSizing: 'auto' }}
-              >
-                Tour
-              </Link>
-            </div>
-            
-            {/* Social Media Icons */}
-            <div className="flex gap-6 items-center justify-center pt-4 border-t border-gray-800">
-              {socialLinks.map((social) => {
-                const IconComponent = social.icon
-                return (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    onClick={closeMenu}
-                    className="cursor-pointer transition-all duration-300 opacity-80 hover:scale-125 hover:opacity-100 p-1"
-                    aria-label={social.name}
-                    title={social.name}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <IconComponent className="w-6 h-6" />
-                  </a>
-                )
-              })}
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-[999] sm:hidden"
+            onClick={closeMenu}
+          />
+          {/* Side Drawer Menu - Left Side (2/3 width) */}
+          <div className="fixed top-0 left-0 w-2/3 h-full bg-black bg-opacity-98 backdrop-blur-md sm:hidden z-[1000] border-r border-gray-800 shadow-2xl transform transition-transform duration-300 ease-in-out">
+            <div className="flex flex-col h-full py-6 px-6 gap-8">
+              {/* Close Button - Top Left */}
+              <div className="flex justify-start">
+                <button
+                  onClick={closeMenu}
+                  className="text-white p-2 focus:outline-none hover:text-[#ff6b6b] transition-colors"
+                  aria-label="Close menu"
+                >
+                  <FaTimes className="w-6 h-6" />
+                </button>
+              </div>
+              
+              {/* Navigation Links - Left Aligned */}
+              <div className="flex flex-col gap-6 flex-1">
+                <Link 
+                  href="/" 
+                  onClick={closeMenu}
+                  className={`font-quicksand uppercase tracking-wider text-base transition-colors duration-300 ${
+                    isActive('/') ? 'text-[#ff6b6b] font-medium' : 'text-white font-light hover:text-[#ff6b6b]'
+                  }`}
+                  style={{ fontOpticalSizing: 'auto' }}
+                >
+                  HOME
+                </Link>
+                <Link 
+                  href="/music" 
+                  onClick={closeMenu}
+                  className={`font-quicksand uppercase tracking-wider text-base transition-colors duration-300 ${
+                    isActive('/music') ? 'text-[#ff6b6b] font-medium' : 'text-white font-light hover:text-[#ff6b6b]'
+                  }`}
+                  style={{ fontOpticalSizing: 'auto' }}
+                >
+                  MUSIC
+                </Link>
+                <Link 
+                  href="/videos" 
+                  onClick={closeMenu}
+                  className={`font-quicksand uppercase tracking-wider text-base transition-colors duration-300 ${
+                    isActive('/videos') ? 'text-[#ff6b6b] font-medium' : 'text-white font-light hover:text-[#ff6b6b]'
+                  }`}
+                  style={{ fontOpticalSizing: 'auto' }}
+                >
+                  VIDEOS
+                </Link>
+                <Link 
+                  href="/tour" 
+                  onClick={closeMenu}
+                  className={`font-quicksand uppercase tracking-wider text-base transition-colors duration-300 ${
+                    isActive('/tour') ? 'text-[#ff6b6b] font-medium' : 'text-white font-light hover:text-[#ff6b6b]'
+                  }`}
+                  style={{ fontOpticalSizing: 'auto' }}
+                >
+                  TOUR
+                </Link>
+                <Link 
+                  href="/about" 
+                  onClick={closeMenu}
+                  className={`font-quicksand uppercase tracking-wider text-base transition-colors duration-300 ${
+                    isActive('/about') ? 'text-[#ff6b6b] font-medium' : 'text-white font-light hover:text-[#ff6b6b]'
+                  }`}
+                  style={{ fontOpticalSizing: 'auto' }}
+                >
+                  ABOUT
+                </Link>
+              </div>
+              
+              {/* Social Media Icons - Bottom */}
+              <div className="flex gap-4 items-center justify-start pt-4 border-t border-gray-800">
+                {socialLinks.map((social) => {
+                  const IconComponent = social.icon
+                  return (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      onClick={closeMenu}
+                      className="cursor-pointer transition-all duration-300 opacity-80 hover:scale-125 hover:opacity-100 text-white"
+                      aria-label={social.name}
+                      title={social.name}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <IconComponent className="w-5 h-5" />
+                    </a>
+                  )
+                })}
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   )
