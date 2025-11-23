@@ -11,6 +11,7 @@ interface Album {
   description: string
   image: string
   hoverImage?: string
+  link?: string
 }
 
 export default function AdminMusic() {
@@ -22,6 +23,7 @@ export default function AdminMusic() {
   const [formDescription, setFormDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const [hoverImageUrl, setHoverImageUrl] = useState('')
+  const [listeningLink, setListeningLink] = useState('')
   const [uploading, setUploading] = useState(false)
   const [uploadingHover, setUploadingHover] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
@@ -54,6 +56,7 @@ export default function AdminMusic() {
     setFormDescription(album.description)
     setImageUrl(album.image)
     setHoverImageUrl(album.hoverImage || '')
+    setListeningLink(album.link || '')
     setShowModal(true)
   }
 
@@ -176,6 +179,7 @@ export default function AdminMusic() {
           description: formDescription,
           image: imageUrl,
           hoverImage: hoverImageUrl || null,
+          link: listeningLink || null,
         }),
       })
 
@@ -200,6 +204,7 @@ export default function AdminMusic() {
     setFormDescription('')
     setImageUrl('')
     setHoverImageUrl('')
+    setListeningLink('')
   }
 
   const handleCloseModal = () => {
@@ -383,6 +388,21 @@ export default function AdminMusic() {
                       </div>
                     )}
                   </div>
+                </div>
+                <div>
+                  <label className="block text-gray-300 font-quicksand font-light mb-2">
+                    Listening Link (Optional)
+                  </label>
+                  <input
+                    type="url"
+                    value={listeningLink}
+                    onChange={(e) => setListeningLink(e.target.value)}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white font-quicksand font-light focus:outline-none focus:border-[#ff6b6b]"
+                    placeholder="https://spotify.com/album/... or https://youtube.com/..."
+                  />
+                  <p className="text-gray-500 font-quicksand font-light text-xs mt-1">
+                    Add a link where users can listen to this music (Spotify, YouTube, etc.)
+                  </p>
                 </div>
                 <div>
                   <label className="block text-gray-300 font-quicksand font-light mb-2">
