@@ -18,6 +18,8 @@ export default function AdminMusic() {
   const [albums, setAlbums] = useState<Album[]>([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [albumToDelete, setAlbumToDelete] = useState<Album | null>(null)
   const [editingAlbum, setEditingAlbum] = useState<Album | null>(null)
   const [formTitle, setFormTitle] = useState('')
   const [formDescription, setFormDescription] = useState('')
@@ -60,16 +62,23 @@ export default function AdminMusic() {
     setShowModal(true)
   }
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this album?')) return
+  const handleDeleteClick = (album: Album) => {
+    setAlbumToDelete(album)
+    setShowDeleteModal(true)
+  }
+
+  const handleDeleteConfirm = async () => {
+    if (!albumToDelete) return
 
     try {
-      const response = await fetch(`${API_BASE_URL}/music/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/music/${albumToDelete._id}`, {
         method: 'DELETE',
       })
 
       if (response.ok) {
         await fetchAlbums()
+        setShowDeleteModal(false)
+        setAlbumToDelete(null)
         alert('Album deleted successfully!')
       } else {
         const error = await response.json()
@@ -79,6 +88,11 @@ export default function AdminMusic() {
       console.error('Error deleting album:', error)
       alert('Failed to delete album. Please try again.')
     }
+  }
+
+  const handleDeleteCancel = () => {
+    setShowDeleteModal(false)
+    setAlbumToDelete(null)
   }
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -284,7 +298,7 @@ export default function AdminMusic() {
                     Edit
                   </button>
                   <button
-                    onClick={() => handleDelete(album._id)}
+                    onClick={() => handleDeleteClick(album)}
                     className="flex-1 bg-red-900 text-white px-4 py-2 rounded-lg font-quicksand font-light uppercase tracking-wider hover:bg-red-800 transition-colors flex items-center justify-center gap-2"
                   >
                     <FaTrash className="w-4 h-4" />
@@ -384,7 +398,16 @@ export default function AdminMusic() {
                             className="rounded-lg"
                           />
                         </div>
-                        <p className="text-green-400 text-xs mt-1">✓ Image uploaded successfully</p>
+                        <div className="flex items-center justify-center gap-2 mt-2">
+                          <p className="text-green-400 text-xs">✓ Image uploaded successfully</p>
+                          <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            className="text-xs text-gray-400 hover:text-white underline"
+                          >
+                            Change Image
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -448,7 +471,23 @@ export default function AdminMusic() {
                             className="rounded-lg"
                           />
                         </div>
-                        <p className="text-green-400 text-xs mt-1">✓ Hover image uploaded successfully</p>
+                        <div className="flex items-center justify-center gap-2 mt-2">
+                          <p className="text-green-400 text-xs">✓ Hover image uploaded successfully</p>
+                          <button
+                            type="button"
+                            onClick={() => hoverFileInputRef.current?.click()}
+                            className="text-xs text-gray-400 hover:text-white underline"
+                          >
+                            Change Image
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setHoverImageUrl('')}
+                            className="text-xs text-red-400 hover:text-red-300 underline"
+                          >
+                            Remove
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -471,6 +510,54 @@ export default function AdminMusic() {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && albumToDelete && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-black border border-gray-800 rounded-xl p-8 max-w-md w-full relative overflow-hidden">
+            <div className="absolute inset-0 bg-black opacity-50"></div>
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-quicksand font-light text-white uppercase tracking-wider flex items-center gap-2">
+                  <FaTrash className="w-6 h-6 text-red-400" />
+                  Delete Album
+                </h2>
+                <button
+                  onClick={handleDeleteCancel}
+                  className="text-gray-400 hover:text-white transition-colors p-2"
+                >
+                  <FaTimes className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <div className="mb-6">
+                <p className="text-gray-300 font-quicksand font-light mb-4">
+                  Are you sure you want to delete the album <span className="text-white font-medium">"{albumToDelete.title}"</span>?
+                </p>
+                <p className="text-gray-400 font-quicksand font-light text-sm">
+                  This action cannot be undone. The album and all its data will be permanently deleted.
+                </p>
+              </div>
+
+              <div className="flex gap-4 justify-end">
+                <button
+                  onClick={handleDeleteCancel}
+                  className="bg-gray-800 text-white px-6 py-2 rounded-lg font-quicksand font-light uppercase tracking-wider hover:bg-gray-700 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDeleteConfirm}
+                  className="bg-red-900 text-white px-6 py-2 rounded-lg font-quicksand font-light uppercase tracking-wider hover:bg-red-800 transition-colors flex items-center gap-2"
+                >
+                  <FaTrash className="w-4 h-4" />
+                  Delete Album
+                </button>
+              </div>
             </div>
           </div>
         </div>

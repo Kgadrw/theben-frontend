@@ -69,18 +69,18 @@ export default function Videos() {
     <section className="relative w-full min-h-screen bg-black py-20 px-12">
       <div className="max-w-7xl mx-auto">
         {/* Videos Title */}
-        <h1 className="text-white text-4xl md:text-5xl font-quicksand font-light uppercase tracking-wider mb-12 md:mb-16 text-left">
+        <h1 className="text-white text-4xl md:text-5xl font-quicksand font-light uppercase tracking-wider mb-12 md:mb-16 text-center">
           Videos
         </h1>
         
         {/* Videos */}
         {!loading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 justify-items-center">
+          <div className="flex flex-col gap-12 md:gap-16">
             {displayVideos.map((video) => (
-              <div key={video._id} className="flex flex-col items-center gap-6 w-full max-w-2xl">
+              <div key={video._id} className="flex flex-col items-center gap-6 w-full">
                 {video.videoUrl ? (
                   // Cloudinary video - show video player
-                  <div className="relative w-full aspect-video bg-gray-800 rounded-lg overflow-hidden">
+                  <div className="relative w-full aspect-video bg-gray-800 rounded-lg overflow-hidden max-w-5xl">
                     <video
                       src={video.videoUrl}
                       controls
@@ -93,14 +93,14 @@ export default function Videos() {
                     href={getVideoUrl(video)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative w-full cursor-pointer"
+                    className="relative w-full cursor-pointer max-w-5xl"
                   >
                     <Image
                       src={getVideoThumbnail(video)}
                       alt={`${video.title} - The Ben Rwandan Artist Music Video`}
-                      width={900}
-                      height={600}
-                      className="w-full h-auto object-contain"
+                      width={1200}
+                      height={675}
+                      className="w-full h-auto object-contain rounded-lg"
                       priority
                       loading="eager"
                       quality={90}
@@ -110,6 +110,11 @@ export default function Videos() {
                     />
                   </a>
                 )}
+                <div className="text-center w-full max-w-5xl">
+                  <h2 className="text-white text-2xl md:text-3xl font-quicksand font-bold uppercase tracking-wider">
+                    {video.title}
+                  </h2>
+                </div>
               </div>
             ))}
           </div>
