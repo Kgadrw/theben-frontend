@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://theben.onrender.com/api'
 
@@ -20,7 +21,7 @@ interface Album {
 export default function Music() {
   const [albums, setAlbums] = useState<Album[]>([])
   const [loading, setLoading] = useState(true)
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [startIndex, setStartIndex] = useState(0)
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -50,32 +51,35 @@ export default function Music() {
   }, [])
 
   // Fallback to default albums if API returns empty or fails
-  const displayAlbums = albums.length > 0 ? albums : [
-    { _id: '1', title: 'Album Title', description: 'Album description or release date', image: '/album 1.jpg' },
-    { _id: '2', title: 'Album Title', description: 'Album description or release date', image: '/album 1.jpg' },
-    { _id: '3', title: 'Album Title', description: 'Album description or release date', image: '/album 1.jpg' },
+  const allAlbums = albums.length > 0 ? albums : [
+    { _id: '1', title: 'Album Title', description: 'Album description or release date', image: '/album 1.jpg', price: '$10.00' },
+    { _id: '2', title: 'Album Title', description: 'Album description or release date', image: '/album 1.jpg', price: '$12.00' },
+    { _id: '3', title: 'Album Title', description: 'Album description or release date', image: '/album 1.jpg', price: '$10.00' },
   ]
 
-  // Reset index if it's out of bounds
+  // Get 3 albums starting from startIndex (with wrapping)
+  const getDisplayAlbums = () => {
+    if (allAlbums.length === 0) return []
+    const result = []
+    for (let i = 0; i < 3; i++) {
+      const index = (startIndex + i) % allAlbums.length
+      result.push(allAlbums[index])
+    }
+    return result
+  }
+
+  const displayAlbums = getDisplayAlbums()
+
+  // Auto-advance albums every 5 seconds
   useEffect(() => {
-    if (displayAlbums.length > 0 && currentIndex >= displayAlbums.length) {
-      setCurrentIndex(0)
-    }
-  }, [displayAlbums.length, currentIndex])
+    if (allAlbums.length <= 3) return
 
-  const nextAlbum = () => {
-    if (displayAlbums.length > 0) {
-      setCurrentIndex((prev) => (prev + 1) % displayAlbums.length)
-    }
-  }
+    const interval = setInterval(() => {
+      setStartIndex((prev) => (prev + 1) % allAlbums.length)
+    }, 5000) // Change every 5 seconds
 
-  const prevAlbum = () => {
-    if (displayAlbums.length > 0) {
-      setCurrentIndex((prev) => (prev - 1 + displayAlbums.length) % displayAlbums.length)
-    }
-  }
-
-  const currentAlbum = displayAlbums.length > 0 && currentIndex < displayAlbums.length ? displayAlbums[currentIndex] : null
+    return () => clearInterval(interval)
+  }, [allAlbums.length])
 
   return (
     <section className="relative w-full h-full min-h-screen bg-black py-4 md:py-6 px-6 md:px-12 overflow-hidden">
@@ -91,88 +95,52 @@ export default function Music() {
           Music
         </h1>
         
-        {/* Albums Carousel */}
-        {!loading && currentAlbum && (
-          <div className="flex flex-col lg:flex-row w-full min-h-[600px]">
-            {/* Left Section - Album Cover */}
-            <div className="w-full lg:w-1/2 bg-black flex items-center justify-center p-8">
-              <div className="relative w-full max-w-lg aspect-square">
-                <Image
-                  src={currentAlbum.image.startsWith('http') ? currentAlbum.image : currentAlbum.image.startsWith('/') ? currentAlbum.image : `/${currentAlbum.image}`}
-                  alt={`${currentAlbum.title} - The Ben Rwandan Artist Album Cover`}
-                  width={600}
-                  height={600}
-                  className="w-full h-full object-cover"
-                  priority
-                  loading="eager"
-                  quality={90}
-                  onError={(e) => {
-                    e.currentTarget.src = '/album 1.jpg'
-                  }}
-                />
-                {currentAlbum.hoverImage && (
-                  <Image
-                    src={currentAlbum.hoverImage.startsWith('http') ? currentAlbum.hoverImage : currentAlbum.hoverImage.startsWith('/') ? currentAlbum.hoverImage : `/${currentAlbum.hoverImage}`}
-                    alt={`${currentAlbum.title} - The Ben Rwandan Artist Album Cover Hover`}
-                    width={600}
-                    height={600}
-                    className="w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute top-0 left-0"
-                    quality={90}
-                    onError={(e) => {
-                      e.currentTarget.src = '/album 1.jpg'
-                    }}
-                  />
-                )}
-              </div>
-            </div>
-            
-            {/* Right Section - Dark Background with Info */}
-            <div className="relative w-full lg:w-1/2 bg-black flex items-center justify-center" style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0)`,
-              backgroundSize: '20px 20px'
-            }}>
-              {/* Left Navigation Chevron */}
-              <button
-                onClick={prevAlbum}
-                className="absolute left-4 md:left-8 z-20 text-white hover:text-gray-300 transition-all duration-300"
-                aria-label="Previous album"
-              >
-                <FaChevronLeft className="w-8 h-8 md:w-10 md:h-10" />
-              </button>
-              
-              {/* Center Content */}
-              <div className="flex flex-col items-center gap-4 text-center px-12">
-                <h2 className="text-white text-5xl md:text-6xl lg:text-7xl font-sans font-bold uppercase tracking-tight">
-                  {currentAlbum.title}
-                </h2>
-                {currentAlbum.link ? (
-                  <a
-                    href={currentAlbum.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block bg-white text-black px-8 py-3 md:px-12 md:py-4 rounded-lg font-quicksand font-bold uppercase tracking-wider text-sm md:text-base hover:bg-gray-200 transition-all duration-300"
-                  >
-                    Listen
-                  </a>
-                ) : (
-                  <button
-                    disabled
-                    className="inline-block bg-gray-600 text-gray-400 px-8 py-3 md:px-12 md:py-4 rounded-lg font-quicksand font-bold uppercase tracking-wider text-sm md:text-base cursor-not-allowed"
-                  >
-                    Listen
-                  </button>
-                )}
-              </div>
-              
-              {/* Right Navigation Chevron */}
-              <button
-                onClick={nextAlbum}
-                className="absolute right-4 md:right-8 z-20 text-white hover:text-gray-300 transition-all duration-300"
-                aria-label="Next album"
-              >
-                <FaChevronRight className="w-8 h-8 md:w-10 md:h-10" />
-              </button>
-            </div>
+        {/* Albums Grid */}
+        {!loading && displayAlbums.length > 0 && (
+          <div className="flex flex-col md:flex-row gap-8 md:gap-12 justify-center items-start">
+            <AnimatePresence mode="popLayout">
+              {displayAlbums.map((album, index) => (
+                <motion.div
+                  key={album._id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -30 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="flex flex-col items-center gap-4 flex-1 max-w-sm"
+                >
+                  {/* Album Card with Dark Frame */}
+                  <div className="relative w-full bg-black border border-black rounded-lg p-4 md:p-6">
+                    {/* Album Cover */}
+                    <div className="relative w-full aspect-square mb-4">
+                      <Image
+                        src={album.image.startsWith('http') ? album.image : album.image.startsWith('/') ? album.image : `/${album.image}`}
+                        alt={`${album.title} - The Ben Rwandan Artist Album Cover`}
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-cover"
+                        priority={index === 0}
+                        quality={90}
+                        onError={(e) => {
+                          e.currentTarget.src = '/album 1.jpg'
+                        }}
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Album Title */}
+                  <div className="text-center w-full">
+                    <h2 className="text-white text-sm md:text-base font-sans uppercase tracking-wider mb-2">
+                      {album.title}
+                    </h2>
+                    {album.price && (
+                      <p className="text-white text-base md:text-lg font-sans">
+                        {album.price}
+                      </p>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         )}
       </div>
