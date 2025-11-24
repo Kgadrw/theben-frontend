@@ -60,17 +60,17 @@ export default function Tours() {
     <section className="relative w-full bg-black py-4 md:py-6 px-6 md:px-12">
       <div className="relative z-10 h-full flex flex-col justify-start pt-2 md:pt-4">
         {/* Tours Title */}
-        <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-quicksand font-light uppercase tracking-wider mb-8 md:mb-12 px-12 md:px-16 lg:px-20">
+        <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-quicksand font-light uppercase tracking-wider mb-8 md:mb-12">
           Tour
         </h1>
         
         {/* Tour Dates */}
         {loading ? (
-          <div className="flex justify-center items-center py-20 px-12 md:px-16 lg:px-20">
+          <div className="flex justify-center items-center py-20">
             <div className="text-white font-quicksand font-light">Loading tours...</div>
           </div>
         ) : (
-          <div className="flex flex-col gap-8 px-12 md:px-16 lg:px-20">
+          <div className="flex flex-col gap-8">
             {displayTours.map((tour) => {
               const { month, day, year } = formatDate(tour.date)
               return (
