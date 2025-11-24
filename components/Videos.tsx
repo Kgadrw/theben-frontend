@@ -66,54 +66,81 @@ export default function Videos() {
   }
 
   return (
-    <section className="relative w-full min-h-screen bg-black py-20 px-12">
-      <div className="max-w-7xl mx-auto">
-        {/* Videos Title */}
-        <h1 className="text-white text-4xl md:text-5xl font-quicksand font-light uppercase tracking-wider mb-12 md:mb-16 text-center">
-          Videos
+    <section className="relative w-full h-full min-h-screen bg-black py-4 md:py-6 px-6 md:px-12">
+      <div className="h-full flex flex-col justify-start pt-2 md:pt-4">
+        {/* Video Title */}
+        <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-quicksand font-light uppercase tracking-wider mb-8 md:mb-12">
+          Video
         </h1>
         
         {/* Videos */}
         {!loading && (
-          <div className="flex flex-col gap-12 md:gap-16">
-            {displayVideos.map((video) => (
-              <div key={video._id} className="flex flex-col items-center gap-6 w-full">
-                {video.videoUrl ? (
-                  // Cloudinary video - show video player
-                  <div className="relative w-full aspect-video bg-gray-800 rounded-lg overflow-hidden max-w-5xl">
-                    <video
-                      src={video.videoUrl}
-                      controls
-                      className="w-full h-full object-cover"
-                    />
+          <div className="flex flex-col md:flex-row gap-8 md:gap-12">
+            {displayVideos.map((video, index) => (
+              <div key={video._id} className="flex flex-col gap-4 flex-1">
+                {/* Video Thumbnail with Play Button */}
+                <a
+                  href={getVideoUrl(video)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative w-full cursor-pointer group"
+                >
+                  <div className="relative w-full aspect-video bg-gray-900 overflow-hidden">
+                    {video.videoUrl ? (
+                      // Cloudinary video - show video player
+                      <video
+                        src={video.videoUrl}
+                        className="w-full h-full object-cover"
+                        muted
+                      />
+                    ) : (
+                      // YouTube video - show thumbnail
+                      <Image
+                        src={getVideoThumbnail(video)}
+                        alt={`${video.title} - The Ben Rwandan Artist Music Video`}
+                        width={800}
+                        height={450}
+                        className="w-full h-full object-cover"
+                        priority={index === 0}
+                        quality={90}
+                        onError={(e) => {
+                          e.currentTarget.src = '/placeholder.jpg'
+                        }}
+                      />
+                    )}
+                    
+                    {/* Play Button Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-all duration-300">
+                      <div className="w-16 h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg className="w-6 h-6 md:w-8 md:h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </div>
+                    </div>
                   </div>
-                ) : (
-                  // YouTube video - show thumbnail
+                </a>
+                
+                {/* Video Info and Watch Now Button */}
+                <div className="flex flex-col gap-3">
                   <a
                     href={getVideoUrl(video)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative w-full cursor-pointer max-w-5xl"
+                    className="inline-block w-fit"
                   >
-                    <Image
-                      src={getVideoThumbnail(video)}
-                      alt={`${video.title} - The Ben Rwandan Artist Music Video`}
-                      width={1200}
-                      height={675}
-                      className="w-full h-auto object-contain rounded-lg"
-                      priority
-                      loading="eager"
-                      quality={90}
-                      onError={(e) => {
-                        e.currentTarget.src = '/placeholder.jpg'
-                      }}
-                    />
+                    <div className="relative inline-block">
+                      <div className="absolute -inset-2 border-2 border-red-500" style={{
+                        borderRadius: '50%',
+                        width: 'calc(100% + 1rem)',
+                        height: 'calc(100% + 1rem)',
+                        top: '-0.5rem',
+                        left: '-0.5rem'
+                      }}></div>
+                      <div className="relative text-white px-6 py-2 font-quicksand font-light uppercase tracking-wider text-sm md:text-base hover:opacity-80 transition-all duration-300">
+                        WATCH NOW
+                      </div>
+                    </div>
                   </a>
-                )}
-                <div className="text-center w-full max-w-5xl">
-                  <h2 className="text-white text-2xl md:text-3xl font-quicksand font-bold uppercase tracking-wider">
-                    {video.title}
-                  </h2>
                 </div>
               </div>
             ))}

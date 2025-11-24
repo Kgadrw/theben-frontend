@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import Music from '@/components/Music'
 import Videos from '@/components/Videos'
+import Tours from '@/components/Tours'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
 
@@ -48,8 +49,11 @@ export default function Home() {
         <Hero />
         <Navbar />
       </div>
-      <Music />
-      <Videos />
+      <div className="flex flex-col bg-black">
+        <Music />
+        <Videos />
+        <Tours />
+      </div>
       <Footer />
     </>
   )

@@ -80,3 +80,17 @@ a {
   background-size: 200% 100%;
 }
 
+/* Vinyl Disk Spin Animation */
+@keyframes vinyl-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.group:hover .vinyl-disk {
+  animation: vinyl-spin 15s linear infinite;
+}
+
