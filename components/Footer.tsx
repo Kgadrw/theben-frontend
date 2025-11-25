@@ -5,13 +5,13 @@ import { FaFacebook, FaInstagram, FaYoutube, FaSpotify } from 'react-icons/fa'
 import { SiApplemusic, SiSoundcloud, SiTwitter } from 'react-icons/si'
 
 const socialLinks = [
-  { name: 'Facebook', icon: FaFacebook, url: '#' },
-  { name: 'X (Twitter)', icon: SiTwitter, url: '#' },
-  { name: 'Instagram', icon: FaInstagram, url: '#' },
-  { name: 'YouTube', icon: FaYoutube, url: '#' },
-  { name: 'Spotify', icon: FaSpotify, url: '#' },
-  { name: 'Apple Music', icon: SiApplemusic, url: '#' },
-  { name: 'SoundCloud', icon: SiSoundcloud, url: '#' },
+  { name: 'Facebook', icon: FaFacebook, url: 'https://www.facebook.com/TheBenWorldWide/' },
+  { name: 'X (Twitter)', icon: SiTwitter, url: 'https://x.com/TheBen250' },
+  { name: 'Instagram', icon: FaInstagram, url: 'https://www.instagram.com/theben3/?hl=en' },
+  { name: 'YouTube', icon: FaYoutube, url: 'https://www.youtube.com/channel/UCuXbUa0FhcNp1dQI8nNho7Q' },
+  { name: 'Spotify', icon: FaSpotify, url: 'https://open.spotify.com/artist/71jxVM5UsQTnPa9DpkK21E' },
+  { name: 'Apple Music', icon: SiApplemusic, url: 'https://music.apple.com/qa/artist/the-ben/343631056' },
+  { name: 'SoundCloud', icon: SiSoundcloud, url: 'https://soundcloud.com/the-ben-656927820' },
 ]
 
 export default function Footer() {

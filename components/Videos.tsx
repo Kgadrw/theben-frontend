@@ -13,7 +13,11 @@ interface Video {
   videoUrl?: string
 }
 
-export default function Videos() {
+interface VideosProps {
+  limit?: number
+}
+
+export default function Videos({ limit }: VideosProps = {}) {
   const [videos, setVideos] = useState<Video[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -39,10 +43,13 @@ export default function Videos() {
   }, [])
 
   // Fallback to default videos if API returns empty or fails
-  const displayVideos = videos.length > 0 ? videos.slice(0, 2) : [
+  const allVideos = videos.length > 0 ? videos : [
     { _id: '1', title: 'Video 1', videoId: '8ufRrmc6Bj4' },
     { _id: '2', title: 'Video 2', videoId: '8ufRrmc6Bj4' },
   ]
+  
+  // Apply limit if provided, otherwise show all
+  const displayVideos = limit ? allVideos.slice(0, limit) : allVideos
 
   const getVideoThumbnail = (video: Video) => {
     if (video.videoId) {
@@ -75,7 +82,7 @@ export default function Videos() {
         
         {/* Videos */}
         {!loading && (
-          <div className="flex flex-col md:flex-row gap-8 md:gap-12">
+          <div className={`flex flex-col ${limit ? 'md:flex-row' : 'md:grid md:grid-cols-2'} gap-8 md:gap-12`}>
             {displayVideos.map((video, index) => (
               <div key={video._id} className="flex flex-col gap-4 flex-1">
                 {/* Video Thumbnail with Play Button */}

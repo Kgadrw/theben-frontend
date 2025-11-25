@@ -10,37 +10,37 @@ const socialLinks = [
   {
     name: 'Facebook',
     icon: FaFacebook,
-    url: '#'
+    url: 'https://www.facebook.com/TheBenWorldWide/'
   },
   {
     name: 'X (Twitter)',
     icon: SiTwitter,
-    url: '#'
+    url: 'https://x.com/TheBen250'
   },
   {
     name: 'Instagram',
     icon: FaInstagram,
-    url: '#'
+    url: 'https://www.instagram.com/theben3/?hl=en'
   },
   {
     name: 'YouTube',
     icon: FaYoutube,
-    url: '#'
+    url: 'https://www.youtube.com/channel/UCuXbUa0FhcNp1dQI8nNho7Q'
   },
   {
     name: 'Spotify',
     icon: FaSpotify,
-    url: '#'
+    url: 'https://open.spotify.com/artist/71jxVM5UsQTnPa9DpkK21E'
   },
   {
     name: 'Apple Music',
     icon: SiApplemusic,
-    url: '#'
+    url: 'https://music.apple.com/qa/artist/the-ben/343631056'
   },
   {
     name: 'SoundCloud',
     icon: SiSoundcloud,
-    url: '#'
+    url: 'https://soundcloud.com/the-ben-656927820'
   },
 ]
 

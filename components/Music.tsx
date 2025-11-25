@@ -18,7 +18,11 @@ interface Album {
   price?: string
 }
 
-export default function Music() {
+interface MusicProps {
+  limit?: number
+}
+
+export default function Music({ limit }: MusicProps = {}) {
   const [albums, setAlbums] = useState<Album[]>([])
   const [loading, setLoading] = useState(true)
   const [startIndex, setStartIndex] = useState(0)
@@ -57,29 +61,36 @@ export default function Music() {
     { _id: '3', title: 'Album Title', description: 'Album description or release date', image: '/album 1.jpg', price: '$10.00' },
   ]
 
-  // Get 3 albums starting from startIndex (with wrapping)
+  // Get albums based on limit or show all
   const getDisplayAlbums = () => {
     if (allAlbums.length === 0) return []
-    const result = []
-    for (let i = 0; i < 3; i++) {
-      const index = (startIndex + i) % allAlbums.length
-      result.push(allAlbums[index])
+    
+    // If limit is provided (homepage), use carousel with limited albums
+    if (limit) {
+      const result = []
+      for (let i = 0; i < limit; i++) {
+        const index = (startIndex + i) % allAlbums.length
+        result.push(allAlbums[index])
+      }
+      return result
     }
-    return result
+    
+    // If no limit (music page), show all albums (already sorted by date)
+    return allAlbums
   }
 
   const displayAlbums = getDisplayAlbums()
 
-  // Auto-advance albums every 5 seconds
+  // Auto-advance albums every 5 seconds (only when limit is set)
   useEffect(() => {
-    if (allAlbums.length <= 3) return
+    if (!limit || allAlbums.length <= limit) return
 
     const interval = setInterval(() => {
       setStartIndex((prev) => (prev + 1) % allAlbums.length)
     }, 5000) // Change every 5 seconds
 
     return () => clearInterval(interval)
-  }, [allAlbums.length])
+  }, [allAlbums.length, limit])
 
   return (
     <section className="relative w-full h-full min-h-screen bg-black py-4 md:py-6 px-6 md:px-12 overflow-hidden">
@@ -97,7 +108,7 @@ export default function Music() {
         
         {/* Albums Grid */}
         {!loading && displayAlbums.length > 0 && (
-          <div className="flex flex-col md:flex-row gap-8 md:gap-12 justify-center items-start">
+          <div className={`flex flex-col ${limit ? 'md:flex-row' : 'md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'} gap-8 md:gap-12 justify-center items-center md:items-start`}>
             <AnimatePresence mode="popLayout">
               {displayAlbums.map((album, index) => (
                 <motion.div
@@ -106,7 +117,7 @@ export default function Music() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -30 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex flex-col items-center gap-4 flex-1 max-w-sm"
+                  className="flex flex-col items-center gap-4 flex-1 w-full max-w-xs md:max-w-sm"
                 >
                   {/* Album Card with Dark Frame */}
                   <div className="relative w-full bg-black border border-black rounded-lg p-4 md:p-6">
@@ -133,10 +144,19 @@ export default function Music() {
                       {album.title}
                     </h2>
                     {album.price && (
-                      <p className="text-white text-base md:text-lg font-sans">
+                      <p className="text-white text-base md:text-lg font-sans mb-4">
                         {album.price}
                       </p>
                     )}
+                    {/* Listen Button */}
+                    <a
+                      href={album.link || 'https://open.spotify.com/artist/71jxVM5UsQTnPa9DpkK21E'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block px-6 py-2 bg-transparent border-2 border-white text-white font-quicksand font-light uppercase tracking-wider text-sm hover:bg-white hover:text-black transition-all duration-300 rounded-sm"
+                    >
+                      Listen
+                    </a>
                   </div>
                 </motion.div>
               ))}

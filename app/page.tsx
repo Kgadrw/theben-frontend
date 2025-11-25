@@ -50,8 +50,8 @@ export default function Home() {
         <Navbar />
       </div>
       <div className="flex flex-col bg-black">
-        <Music />
-        <Videos />
+        <Music limit={3} />
+        <Videos limit={2} />
         <Tours />
       </div>
       <Footer />
