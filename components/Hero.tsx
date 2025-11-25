@@ -57,6 +57,12 @@ export default function Hero() {
     ? `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=${autoplayParam}&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&disablekb=1&fs=0&iv_load_policy=3&cc_load_policy=0&origin=${typeof window !== 'undefined' ? window.location.origin : ''}&widget_referrer=${typeof window !== 'undefined' ? window.location.origin : ''}`
     : ''
 
+  const handleVideoClick = () => {
+    if (isMobile && videoId) {
+      window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank', 'noopener,noreferrer')
+    }
+  }
+
   return (
     <section className="relative w-full h-[60vh] md:h-screen overflow-hidden">
       <div className="absolute inset-0 w-full h-full z-[1] overflow-hidden" style={{ isolation: 'isolate' }}>
@@ -102,6 +108,14 @@ export default function Hero() {
       </div>
       {/* Dark overlay to reduce brightness */}
       <div className="absolute inset-0 w-full h-full bg-black opacity-40 z-[2] pointer-events-none"></div>
+      {/* Clickable overlay for mobile - redirects to YouTube */}
+      {isMobile && videoId && (
+        <div 
+          className="absolute inset-0 w-full h-full z-[3] cursor-pointer md:hidden"
+          onClick={handleVideoClick}
+          aria-label="Click to watch on YouTube"
+        />
+      )}
     </section>
   )
 }
