@@ -50,9 +50,8 @@ export default function Hero() {
   }, [])
 
   // Hide all YouTube controls and overlays: controls=0, disablekb=1, fs=0, iv_load_policy=3, cc_load_policy=0
-  // Disable autoplay on mobile devices
   // Additional parameters to hide title, share button, and suggestions
-  const autoplayParam = isMobile ? '0' : '1'
+  const autoplayParam = '1'
   const embedUrl = videoId 
     ? `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=${autoplayParam}&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&disablekb=1&fs=0&iv_load_policy=3&cc_load_policy=0&origin=${typeof window !== 'undefined' ? window.location.origin : ''}&widget_referrer=${typeof window !== 'undefined' ? window.location.origin : ''}`
     : ''
@@ -77,7 +76,7 @@ export default function Hero() {
               minWidth: '177.78vh',
             }}
             src={videoUrl}
-            autoPlay={!isMobile}
+            autoPlay
             muted
             loop
             playsInline
