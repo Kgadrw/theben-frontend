@@ -75,7 +75,7 @@ export default function AdminLayout({
   if (!isAuth) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white font-quicksand font-light">Loading...</div>
+        <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
       </div>
     )
   }

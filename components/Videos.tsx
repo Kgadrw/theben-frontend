@@ -81,7 +81,11 @@ export default function Videos({ limit }: VideosProps = {}) {
         </h1>
         
         {/* Videos */}
-        {!loading && (
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : (
           <div className={`flex flex-col ${limit ? 'md:flex-row' : 'md:grid md:grid-cols-2'} gap-8 md:gap-12`}>
             {displayVideos.map((video, index) => (
               <div key={video._id} className="flex flex-col gap-4 flex-1">

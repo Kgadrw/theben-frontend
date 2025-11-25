@@ -107,7 +107,11 @@ export default function Music({ limit }: MusicProps = {}) {
         </h1>
         
         {/* Albums Grid */}
-        {!loading && displayAlbums.length > 0 && (
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : displayAlbums.length > 0 && (
           <div className={`flex flex-col ${limit ? 'md:flex-row' : 'md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'} gap-8 md:gap-12 justify-center items-center md:items-start`}>
             <AnimatePresence mode="popLayout">
               {displayAlbums.map((album, index) => (

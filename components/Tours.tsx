@@ -67,7 +67,7 @@ export default function Tours() {
         {/* Tour Dates */}
         {loading ? (
           <div className="flex justify-center items-center py-20">
-            <div className="text-white font-quicksand font-light">Loading tours...</div>
+            <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : (
           <div className="flex flex-col gap-8">

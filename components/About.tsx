@@ -43,7 +43,7 @@ export default function About() {
       <section className="relative w-full min-h-screen bg-black py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-center items-center py-20">
-            <p className="text-white text-xl font-quicksand font-light">Loading biography...</p>
+            <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
           </div>
         </div>
       </section>
