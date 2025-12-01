@@ -4,12 +4,12 @@ import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Videos',
-  description: 'Watch The Ben\'s latest music videos and performances. The Ben is a prominent Rwandan artist showcasing his music videos, live performances, and behind-the-scenes content.',
-  keywords: ['The Ben videos', 'The Ben music videos', 'Rwandan music videos', 'The Ben performances', 'East African music videos', 'Benjamin Mugisha videos'],
+  title: 'theben Videos - The Ben Music Videos | Rwandan Artist',
+  description: 'Watch theben (The Ben)\'s latest music videos and performances. The Ben is a prominent Rwandan artist showcasing his music videos, live performances, and behind-the-scenes content.',
+  keywords: ['theben videos', 'theben music videos', 'The Ben videos', 'The Ben music videos', 'Rwandan music videos', 'The Ben performances', 'East African music videos', 'Benjamin Mugisha videos', 'theben performances'],
   openGraph: {
-    title: 'The Ben Videos | Rwandan Artist Music Videos',
-    description: 'Watch The Ben\'s latest music videos and performances. Experience his music through official music videos and live performances.',
+    title: 'theben Videos - The Ben Music Videos | Rwandan Artist',
+    description: 'Watch theben (The Ben)\'s latest music videos and performances. Experience his music through official music videos and live performances.',
     url: '/videos',
     type: 'website',
     images: ['/theben.jfif'],

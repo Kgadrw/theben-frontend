@@ -17,12 +17,12 @@ const comforterBrush = Comforter_Brush({
 
 export const metadata: Metadata = {
   title: {
-    default: 'The Ben | Rwandan Artist | Official Website',
-    template: '%s | The Ben - Rwandan Artist'
+    default: 'theben - The Ben | Official Website | Rwandan Artist & Musician',
+    template: '%s | theben - The Ben Official'
   },
-  description: 'The Ben (Benjamin Mugisha) is a prominent Rwandan artist and musician from East Africa. Discover his latest music, videos, tours, and performances. Known for hit songs like "Ndaje", "Ni Forever", and "Naremeye".',
-  keywords: ['The Ben', 'Theben', 'Rwandan artist', 'Rwandan musician', 'East African music', 'Benjamin Mugisha', 'Rwanda music', 'The Ben songs', 'Ndaje', 'Ni Forever', 'Naremeye', 'East Africa Best Act', 'Rwandan singer', 'Rwanda entertainment'],
-  authors: [{ name: 'The Ben' }],
+  description: 'theben (The Ben) - Benjamin Mugisha is a prominent Rwandan artist and musician from East Africa. Official website featuring latest music, videos, tours, and performances. Known for hit songs like "Ndaje", "Ni Forever", and "Naremeye".',
+  keywords: ['theben', 'the ben', 'Theben', 'The Ben', 'theben official', 'theben music', 'theben rwanda', 'theben artist', 'theben musician', 'Rwandan artist', 'Rwandan musician', 'East African music', 'Benjamin Mugisha', 'Rwanda music', 'The Ben songs', 'Ndaje', 'Ni Forever', 'Naremeye', 'East Africa Best Act', 'Rwandan singer', 'Rwanda entertainment', 'theben songs', 'theben videos', 'theben tour'],
+  authors: [{ name: 'The Ben', url: process.env.NEXT_PUBLIC_SITE_URL || 'https://thebenofficial.com' }],
   creator: 'The Ben',
   publisher: 'The Ben',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://thebenofficial.com'),
@@ -33,23 +33,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: process.env.NEXT_PUBLIC_SITE_URL || 'https://thebenofficial.com',
-    siteName: 'The Ben - Rwandan Artist',
-    title: 'The Ben | Rwandan Artist | Official Website',
-    description: 'The Ben (Benjamin Mugisha) is a prominent Rwandan artist and musician from East Africa. Discover his latest music, videos, tours, and performances.',
+    siteName: 'theben - The Ben Official',
+    title: 'theben - The Ben | Official Website | Rwandan Artist & Musician',
+    description: 'theben (The Ben) - Benjamin Mugisha is a prominent Rwandan artist and musician from East Africa. Official website featuring latest music, videos, tours, and performances.',
     images: [
       {
         url: '/theben.jfif',
         width: 1200,
         height: 630,
-        alt: 'The Ben - Rwandan Artist',
+        alt: 'theben - The Ben Rwandan Artist',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Ben | Rwandan Artist | Official Website',
-    description: 'The Ben (Benjamin Mugisha) is a prominent Rwandan artist and musician from East Africa. Discover his latest music, videos, tours, and performances.',
+    title: 'theben - The Ben | Official Website | Rwandan Artist & Musician',
+    description: 'theben (The Ben) - Benjamin Mugisha is a prominent Rwandan artist and musician from East Africa. Official website featuring latest music, videos, tours, and performances.',
     images: ['/theben.jfif'],
+    creator: '@theben',
   },
   robots: {
     index: true,
@@ -71,6 +72,14 @@ export const metadata: Metadata = {
     icon: '/logo.jpg',
     shortcut: '/logo.jpg',
     apple: '/logo.jpg',
+  },
+  category: 'Music',
+  classification: 'Entertainment',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'theben',
   },
 }
 

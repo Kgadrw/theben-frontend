@@ -1,0 +1,28 @@
+{
+  "name": "theben - The Ben Official",
+  "short_name": "theben",
+  "description": "Official website of theben (The Ben) - Benjamin Mugisha, a prominent Rwandan artist and musician from East Africa.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["music", "entertainment"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
+
